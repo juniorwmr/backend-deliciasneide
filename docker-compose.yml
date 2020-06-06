@@ -1,0 +1,16 @@
+version: '3.5'
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    networks:
+      - pg_network
+    environment:
+      - POSTGRES_PASSWORD=scylla123
+      - POSTGRES_USER=juniorwmr
+    ports:
+      - 5432:5432
+networks:
+  pg_network:
+    name: pg_network
