@@ -21,14 +21,6 @@ const PedidoSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  latitude: {
-    type: String,
-    require: true,
-  },
-  longitude: {
-    type: String,
-    require: true,
-  },
   created_at: {
     type: Date,
     default: Date.now,
