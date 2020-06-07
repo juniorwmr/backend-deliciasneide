@@ -21,6 +21,10 @@ const PedidoSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  phone: {
+    type: String,
+    require: true,
+  },
   created_at: {
     type: Date,
     default: Date.now,
