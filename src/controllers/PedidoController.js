@@ -26,11 +26,16 @@ module.exports = {
     }
   },
   async updateStatus(req, res) {
-    const { id } = req.params;
-    const updated = Pedido.findByIdAndUpdate({ _id: id }, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    try {
+      const { id } = req.params;
+      const updated = Pedido.findByIdAndUpdate({ _id: id }, req.body, {
+        new: true,
+        runValidators: true,
+      });
+      return res.send({ updated });
+    } catch (error) {
+      next(error);
+    }
   },
 
   async delete(req, res) {
