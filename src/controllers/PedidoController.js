@@ -3,7 +3,7 @@ const Pedido = require("../models/PedidoModel");
 module.exports = {
   async index(req, res) {
     try {
-      const pedidos = await Pedido.find();
+      const pedidos = await Pedido.find({ status: false });
       return res.send({ pedidos });
     } catch (error) {
       next(error);
