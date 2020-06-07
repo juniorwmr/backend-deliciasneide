@@ -11,7 +11,7 @@ module.exports = {
   },
   async indexDeliveried(req, res) {
     try {
-      const pedidos = await Pedido.find().where({ status: true });
+      const pedidos = await Pedido.find({ status: true });
       return res.send({ pedidos });
     } catch (error) {
       next(error);
