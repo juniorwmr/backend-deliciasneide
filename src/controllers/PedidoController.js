@@ -25,6 +25,15 @@ module.exports = {
       next(error);
     }
   },
+  async updateStatus(req, res) {
+    const { id } = req.params;
+    const updated = Pedido.findByIdAndUpdate(
+      { _id: id },
+      { status: true },
+      { new: true, runValidators: true }
+    );
+  },
+
   async delete(req, res) {
     const { pedido_id } = req.params;
     try {
