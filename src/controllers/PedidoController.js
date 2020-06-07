@@ -9,6 +9,14 @@ module.exports = {
       next(error);
     }
   },
+  async indexDeliveried(req, res) {
+    try {
+      const pedidos = await Pedido.find().where({ status: true });
+      return res.send({ pedidos });
+    } catch (error) {
+      next(error);
+    }
+  },
   async create(req, res) {
     try {
       const pedido = await Pedido.create(req.body);
