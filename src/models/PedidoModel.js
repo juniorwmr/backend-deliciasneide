@@ -25,7 +25,7 @@ const PedidoSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  phone: {
+  status: {
     type: Boolean,
     require: true,
     default: false,
