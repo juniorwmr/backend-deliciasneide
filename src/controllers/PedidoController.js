@@ -25,17 +25,17 @@ module.exports = {
       next(error);
     }
   },
-  async updateStatus(req, res) {
-    try {
-      // const { id } = req.params;
-      // const updated = await Pedido.findByIdAndUpdate({ _id: id }, req.body, {
-      //   new: true,
-      // });
-      // return res.send({ updated });
-    } catch (error) {
-      next(error);
-    }
-  },
+  // async updateStatus(req, res) {
+  //   try {
+  //     // const { id } = req.params;
+  //     // const updated = await Pedido.findByIdAndUpdate({ _id: id }, req.body, {
+  //     //   new: true,
+  //     // });
+  //     // return res.send({ updated });
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // },
 
   async delete(req, res) {
     const { pedido_id } = req.params;
