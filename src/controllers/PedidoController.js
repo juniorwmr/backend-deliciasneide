@@ -27,11 +27,10 @@ module.exports = {
   },
   async updateStatus(req, res) {
     const { id } = req.params;
-    const updated = Pedido.findByIdAndUpdate(
-      { _id: id },
-      { status: true },
-      { new: true, runValidators: true }
-    );
+    const updated = Pedido.findByIdAndUpdate({ _id: id }, req.body, {
+      new: true,
+      runValidators: true,
+    });
   },
 
   async delete(req, res) {
