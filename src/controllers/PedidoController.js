@@ -48,7 +48,7 @@ module.exports = {
   },
   async deleteAll(req, res) {
     try {
-      await Pedido.deleteMay({});
+      await Pedido.deleteMany({});
       return res.send();
     } catch (error) {
       next(error);
