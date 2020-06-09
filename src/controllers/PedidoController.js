@@ -46,4 +46,11 @@ module.exports = {
       next(error);
     }
   },
+  async deleteAll(req, res) {
+    try {
+      await Pedido.deleteMay({});
+    } catch (error) {
+      next(error);
+    }
+  },
 };

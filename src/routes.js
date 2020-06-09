@@ -9,5 +9,6 @@ router.get("/pedidos/deliveried", PedidoController.indexDeliveried);
 router.post("/pedidos", PedidoController.create);
 router.put("/pedidos/deliveried/:id", PedidoController.updateStatus);
 router.delete("/pedidos/:pedido_id", PedidoController.delete);
+router.delete("/pedidos", PedidoController.deleteAll);
 
 module.exports = router;
