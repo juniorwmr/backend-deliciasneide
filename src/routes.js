@@ -6,7 +6,6 @@ const PedidoController = require("./controllers/PedidoController");
 // Pedidos
 router.get("/pedidos/:pedido_id", PedidoController.index);
 router.get("/pedidos/address", PedidoController.indexAddress);
-router.get("/pedidos/deliveried", PedidoController.indexDeliveried);
 router.post("/pedidos", PedidoController.create);
 router.put("/pedidos/deliveried/:id", PedidoController.updateStatus);
 router.delete("/pedidos/:pedido_id", PedidoController.delete);

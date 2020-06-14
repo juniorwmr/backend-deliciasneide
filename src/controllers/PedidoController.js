@@ -5,15 +5,11 @@ module.exports = {
   async index(req, res) {
     const { pedido_id } = req.params;
     try {
-      const pedido = await Pedido.findById(pedido_id).populate("sabores");
-      return res.send({ pedido });
-    } catch (error) {
-      next(error);
-    }
-  },
-  async indexDeliveried(req, res) {
-    try {
-      const pedidos = await Pedido.find();
+      if (pedido_id) {
+        const pedido = await Pedido.findById(pedido_id).populate("sabores");
+        return res.send({ pedido });
+      }
+      const pedidos = await Pedido.find({ status: true });
       return res.send({ pedidos });
     } catch (error) {
       next(error);
