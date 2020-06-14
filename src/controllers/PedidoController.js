@@ -1,9 +1,10 @@
 const Pedido = require("../models/PedidoModel");
+const Sabor = require("../models/SaborModel");
 
 module.exports = {
   async index(req, res) {
     try {
-      const pedidos = await Pedido.find({ status: false });
+      const pedidos = await Pedido.find({ status: false }).populate("sabores");
       return res.send({ pedidos });
     } catch (error) {
       next(error);
@@ -18,8 +19,27 @@ module.exports = {
     }
   },
   async create(req, res) {
+    const { name, phone, sabores, address, value, change, payment } = req.body;
     try {
-      const pedido = await Pedido.create(req.body);
+      const pedido = await Pedido.create({
+        name,
+        phone,
+        address,
+        value,
+        change,
+        payment
+      });
+
+      await Promise.all(
+        sabores.map(async (sabor) => {
+          const pedidoSabor = new Sabor({ ...sabor, pedido_id: pedido._id });
+          await pedidoSabor.save();
+          pedido.sabores.push(pedidoSabor);
+        })
+      );
+
+      await pedido.save();
+
       return res.send({ pedido });
     } catch (error) {
       next(error);

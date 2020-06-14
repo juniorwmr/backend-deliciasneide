@@ -3,31 +3,32 @@ const mongoose = require("mongoose");
 const PedidoSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
   },
-  sabores: {
-    type: String,
-    require: true,
-  },
+  sabores: [{ type: String, ref: "Sabor" }],
   address: {
     type: String,
-    require: true,
+    required: true,
   },
   value: {
     type: String,
-    require: true,
+    required: true,
   },
   change: {
     type: String,
-    require: true,
+    required: true,
+  },
+  payment: {
+    type: Number,
+    required: true,
   },
   phone: {
     type: String,
-    require: true,
+    required: true,
   },
   status: {
     type: Boolean,
-    require: true,
+    required: true,
     default: false,
   },
   created_at: {

@@ -12,7 +12,6 @@ const SaborSchema = new mongoose.Schema({
   },
   qtd: {
     type: Number,
-    required: true,
     default: 0,
   },
 });
