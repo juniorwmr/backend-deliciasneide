@@ -9,15 +9,15 @@ module.exports = {
         const pedido = await Pedido.findById(pedido_id).populate("sabores");
         return res.send({ pedido });
       }
-      const pedidos = await Pedido.find({ status: true });
+      const pedidos = await Pedido.find({ status: false }).select('_id address created_at');
       return res.send({ pedidos });
     } catch (error) {
       next(error);
     }
   },
-  async indexAddress(req, res) {
+  async indexDeliveried(req, res) {
     try {
-      const pedidos = await Pedido.find({ status: false }).select('_id address created_at');
+      const pedidos = await Pedido.find({ status: true });
       return res.send({ pedidos });
     } catch (error) {
       next(error);
@@ -52,8 +52,8 @@ module.exports = {
   },
   async updateStatus(req, res) {
     try {
-      const { id } = req.params;
-      const updated = await Pedido.findByIdAndUpdate({ _id: id }, req.body, {
+      const { pedido_id } = req.params;
+      const updated = await Pedido.findByIdAndUpdate({ _id: pedido_id }, req.body, {
         new: true,
       });
       return res.send({ updated });
