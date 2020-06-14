@@ -5,7 +5,7 @@ module.exports = {
   async index(req, res) {
     const { pedido_id } = req.params;
     try {
-      const pedidos = await Pedido.find({ _id: pedido_id  }).populate("sabores");
+      const pedidos = await Pedido.findById(pedido_id).populate("sabores");
       return res.send({ pedidos });
     } catch (error) {
       next(error);
