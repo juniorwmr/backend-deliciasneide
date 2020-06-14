@@ -18,6 +18,14 @@ module.exports = {
       next(error);
     }
   },
+  async indexAddress(req, res) {
+    try {
+      const pedidos = await Pedido.find({ status: false }).select({address, status, horario});
+      return res.send({ pedidos });
+    } catch (error) {
+      next(error);
+    }
+  },
   async create(req, res) {
     const { name, phone, sabores, address, value, change, payment } = req.body;
     try {
