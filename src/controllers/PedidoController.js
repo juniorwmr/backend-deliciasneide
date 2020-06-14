@@ -12,7 +12,7 @@ module.exports = {
   },
   async findDeliveried(req, res) {
     try {
-      const pedidos = await Pedido.find().where('status').equals(true).populate();
+      const pedidos = await Pedido.find().where('status').equals(true).populate("sabores");
       return res.send({ pedidos });
     } catch (error) {
       next(error);
