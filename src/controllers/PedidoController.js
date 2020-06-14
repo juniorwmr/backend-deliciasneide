@@ -56,8 +56,8 @@ module.exports = {
   },
   async updateStatus(req, res) {
     try {
-      const { id } = req.params;
-      const updated = await Pedido.findByIdAndUpdate({ _id: id }, req.body, {
+      const { pedido_id } = req.params;
+      const updated = await Pedido.findByIdAndUpdate({ _id: pedido_id }, req.body, {
         new: true,
       });
       return res.send({ updated });
