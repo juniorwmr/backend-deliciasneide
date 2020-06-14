@@ -9,7 +9,7 @@ module.exports = {
         const pedido = await Pedido.findById(pedido_id).populate("sabores");
         return res.send({ pedido });
       }
-      const pedidos = await Pedido.find({ status: false }).select('_id address created_at');
+      const pedidos = await Pedido.find({ status: false }).populate("sabores").select('_id address created_at');
       return res.send({ pedidos });
     } catch (error) {
       next(error);
@@ -17,7 +17,7 @@ module.exports = {
   },
   async indexDeliveried(req, res) {
     try {
-      const pedidos = await Pedido.find({ status: true });
+      const pedidos = await Pedido.find({ status: true }).populate("sabores");
       return res.send({ pedidos });
     } catch (error) {
       next(error);
