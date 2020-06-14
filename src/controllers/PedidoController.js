@@ -4,7 +4,7 @@ const Sabor = require("../models/SaborModel");
 module.exports = {
   async findAddress(req, res) {
     try {
-      const pedidos = await Pedido.find().where('status').equals(false);
+      const pedidos = await Pedido.find().where('status').equals(false).populate("sabores");
       return res.send({ pedidos });
     } catch (error) {
       next(error);
