@@ -20,7 +20,7 @@ module.exports = {
   },
   async indexAddress(req, res) {
     try {
-      const pedidos = await Pedido.find({ status: false }).select('address', 'status', 'horario');
+      const pedidos = await Pedido.find({ status: false }).select('address', 'created_at');
       return res.send({ pedidos });
     } catch (error) {
       next(error);
