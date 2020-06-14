@@ -2,7 +2,15 @@ const Pedido = require("../models/PedidoModel");
 const Sabor = require("../models/SaborModel");
 
 module.exports = {
-  async indexDetails(req, res) {
+  async findAddress(req, res) {
+    try {
+      const pedidos = await Pedido.find().where('status').equals(false).select('_id address created_at');
+      return res.send({ pedidos });
+    } catch (error) {
+      next(error);
+    }
+  },
+  async findDetails(req, res) {
     const { pedido_id } = req.params;
     try {
       const pedidos = await Pedido.findById({ _id: pedido_id }).populate("sabores");
@@ -11,9 +19,9 @@ module.exports = {
       next(error);
     }
   },
-  async findAddress(req, res) {
+  async findDeliveried(req, res) {
     try {
-      const pedidos = await Pedido.find().where('status').equals(false).select('_id address created_at');
+      const pedidos = await Pedido.find().where('status').equals(true);
       return res.send({ pedidos });
     } catch (error) {
       next(error);
