@@ -10,18 +10,9 @@ module.exports = {
       next(error);
     }
   },
-  async findDetails(req, res) {
-    const { pedido_id } = req.params;
-    try {
-      const pedidos = await Pedido.findById({ _id: pedido_id }).populate("sabores");
-      return res.send({ pedidos });
-    } catch (error) {
-      next(error);
-    }
-  },
   async findDeliveried(req, res) {
     try {
-      const pedidos = await Pedido.find().where('status').equals(true);
+      const pedidos = await Pedido.find().populate();
       return res.send({ pedidos });
     } catch (error) {
       next(error);
