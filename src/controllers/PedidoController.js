@@ -3,8 +3,9 @@ const Sabor = require("../models/SaborModel");
 
 module.exports = {
   async index(req, res) {
+    const { pedido_id } = req.params;
     try {
-      const pedidos = await Pedido.find({ status: false }).populate("sabores");
+      const pedidos = await Pedido.find({ _id: pedido_id  }).populate("sabores");
       return res.send({ pedidos });
     } catch (error) {
       next(error);
