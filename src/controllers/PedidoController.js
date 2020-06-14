@@ -19,13 +19,14 @@ module.exports = {
     }
   },
   async create(req, res) {
-    const { name, phone, sabores, address, value, change, payment } = req.body;
+    const { name, phone, sabores, address, value, change, payment, taxa } = req.body;
     try {
       const pedido = await Pedido.create({
         name,
         phone,
         address,
         value,
+        taxa,
         change,
         payment
       });

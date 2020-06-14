@@ -14,6 +14,10 @@ const PedidoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  taxa: {
+    type: String,
+    required: true,
+  },
   change: {
     type: String,
     required: true,
