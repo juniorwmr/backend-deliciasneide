@@ -1,5 +1,6 @@
 const Pedido = require("../models/PedidoModel");
 const Sabor = require("../models/SaborModel");
+const { sendMessage } = require("../socket");
 
 module.exports = {
   async findAddress(req, res) {
@@ -40,7 +41,7 @@ module.exports = {
       );
 
       await pedido.save();
-
+      sendMessage("new-pedido", pedido);
       return res.send({ pedido });
     } catch (error) {
       next(error);
