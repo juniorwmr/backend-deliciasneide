@@ -5,7 +5,10 @@ const http = require("http");
 const mongoose = require("mongoose");
 const admin = require('firebase-admin');
 const cors = require("cors");
+
 admin.initializeApp({
+    credential: credential.cert(
+      JSON.parse(Buffer.from(process.env.GOOGLE_CONFIG_BASE64, 'base64').toString('ascii'))),
     databaseURL: "https://deliciasneide-80b73.firebaseio.com"
 });
 
