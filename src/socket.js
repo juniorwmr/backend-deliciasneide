@@ -9,15 +9,8 @@ const setupWebSocket = server => {
 		connections.push({
 			id: socket.id,
 		})
-		socket.on("register-pedido", message => {
-			notifyUser(message);
-		})
 	});
 };
-
-const notifyUser = async (message) => {
-	io.emit('notify-ser', message)
-}
 
 const sendMessage = async (message, data) => {
 	io.emit(message, data);

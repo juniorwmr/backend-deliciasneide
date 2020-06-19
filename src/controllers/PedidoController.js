@@ -1,8 +1,38 @@
 const Pedido = require("../models/PedidoModel");
 const Sabor = require("../models/SaborModel");
 const { sendMessage } = require("../socket");
+const admin = require('firebase-admin');
+const fetch = require('node-fetch');
 
 module.exports = {
+  async sendNotification(req, res) {
+      admin.database()
+            .ref('/users')
+            .once('value')
+            .then(snapshot => {
+              messages = []
+              snapshot.forEach(childSnapshot => {
+                var expoToken = childSnapshot.val().expoToken
+                if (expoToken) {
+                  messages.push({
+                    sound: 'default',
+                    to: expoToken,
+                    body: 'Um novo pedido chegou, confira!'
+                  })
+                }
+              })
+              return Promise.all(messages)
+            }).then(messages => {
+              fetch('https://exp.host/--/api/v2/push/send', {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(messages)
+              })
+            })
+  },
   async findAddress(req, res) {
     try {
       const pedidos = await Pedido.find().where('status').equals(false).populate("sabores");

@@ -5,6 +5,7 @@ const PedidoController = require("./controllers/PedidoController");
 
 // Pedidos
 router.get("/pedidos", PedidoController.findAddress);
+router.get('/notification', PedidoController.sendNotification);
 router.get("/pedidos/deliveried", PedidoController.findDeliveried);
 router.post("/pedidos", PedidoController.create);
 router.put("/pedidos/deliveried/:pedido_id", PedidoController.updateStatus);
