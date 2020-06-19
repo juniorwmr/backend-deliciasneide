@@ -5,9 +5,7 @@ const http = require("http");
 const mongoose = require("mongoose");
 const admin = require('firebase-admin');
 const cors = require("cors");
-var serviceAccount = require("./deliciasneide-80b73-firebase-adminsdk-matjv-fac234a377.json");
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://deliciasneide-80b73.firebaseio.com"
 });
 
