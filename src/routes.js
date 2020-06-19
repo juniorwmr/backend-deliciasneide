@@ -3,7 +3,6 @@ const router = express.Router();
 
 const PedidoController = require("./controllers/PedidoController");
 
-// Pedidos
 router.get("/pedidos", PedidoController.findAddress);
 router.get('/notification', PedidoController.sendNotification);
 router.get("/pedidos/deliveried", PedidoController.findDeliveried);
