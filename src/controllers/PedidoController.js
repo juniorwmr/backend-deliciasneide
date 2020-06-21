@@ -16,9 +16,10 @@ module.exports = {
           var expoToken = childSnapshot.val().expoToken;
           if (expoToken) {
             messages.push({
-              sound: "default",
               to: expoToken,
               body: "Um novo pedido chegou, confira!",
+              channelId: "new-pedido",
+              priority: "max",
             });
           }
         });
