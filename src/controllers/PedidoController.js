@@ -1,41 +1,46 @@
 const Pedido = require("../models/PedidoModel");
 const Sabor = require("../models/SaborModel");
-const { sendMessage } = require("../socket");
-const admin = require('firebase-admin');
-const fetch = require('node-fetch');
+const { sendMessage, deliveriedPedido } = require("../socket");
+const admin = require("firebase-admin");
+const fetch = require("node-fetch");
 
 module.exports = {
   async sendNotification(req, res) {
-      admin.database()
-            .ref('/users')
-            .once('value')
-            .then(snapshot => {
-              messages = []
-              snapshot.forEach(childSnapshot => {
-                var expoToken = childSnapshot.val().expoToken
-                if (expoToken) {
-                  messages.push({
-                    sound: 'default',
-                    to: expoToken,
-                    body: 'Um novo pedido chegou, confira!'
-                  })
-                }
-              })
-              return Promise.all(messages)
-            }).then(messages => {
-              fetch('https://exp.host/--/api/v2/push/send', {
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(messages)
-              })
-            })
+    admin
+      .database()
+      .ref("/users")
+      .once("value")
+      .then((snapshot) => {
+        messages = [];
+        snapshot.forEach((childSnapshot) => {
+          var expoToken = childSnapshot.val().expoToken;
+          if (expoToken) {
+            messages.push({
+              sound: "default",
+              to: expoToken,
+              body: "Um novo pedido chegou, confira!",
+            });
+          }
+        });
+        return Promise.all(messages);
+      })
+      .then((messages) => {
+        fetch("https://exp.host/--/api/v2/push/send", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(messages),
+        });
+      });
   },
   async findAddress(req, res) {
     try {
-      const pedidos = await Pedido.find().where('status').equals(false).populate("sabores");
+      const pedidos = await Pedido.find()
+        .where("status")
+        .equals(false)
+        .populate("sabores");
       return res.send({ pedidos });
     } catch (error) {
       next(error);
@@ -43,14 +48,26 @@ module.exports = {
   },
   async findDeliveried(req, res) {
     try {
-      const pedidos = await Pedido.find().where('status').equals(true).populate("sabores");
+      const pedidos = await Pedido.find()
+        .where("status")
+        .equals(true)
+        .populate("sabores");
       return res.send({ pedidos });
     } catch (error) {
       next(error);
     }
   },
   async create(req, res) {
-    const { name, phone, sabores, address, value, change, payment, taxa } = req.body;
+    const {
+      name,
+      phone,
+      sabores,
+      address,
+      value,
+      change,
+      payment,
+      taxa,
+    } = req.body;
     try {
       const pedido = await Pedido.create({
         name,
@@ -59,7 +76,7 @@ module.exports = {
         value,
         taxa,
         change,
-        payment
+        payment,
       });
 
       await Promise.all(
@@ -80,9 +97,14 @@ module.exports = {
   async updateStatus(req, res) {
     try {
       const { pedido_id } = req.params;
-      const updated = await Pedido.findByIdAndUpdate({ _id: pedido_id }, req.body, {
-        new: true,
-      });
+      deliveriedPedido("deliveried-pedido", pedido_id);
+      const updated = await Pedido.findByIdAndUpdate(
+        { _id: pedido_id },
+        req.body,
+        {
+          new: true,
+        }
+      );
       return res.send({ updated });
     } catch (error) {
       next(error);
